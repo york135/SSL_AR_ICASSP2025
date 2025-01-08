@@ -187,7 +187,7 @@ The same observation can be found for VCTK (reported in the paper: $50.03$% $\pm
 
 To access these results, see `jsons/`.
 
-Anyway, I decided not to change the contents of the paper as the camera-ready version should not include too much changes from the original submission, but I decided to report it here.
+Anyway, I decided not to change the contents of the paper (as the differences are rather minor), but report it here.
 
 ### Authors' contributions
 
