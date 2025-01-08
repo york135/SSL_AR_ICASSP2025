@@ -1,0 +1,30 @@
+batch_size: 8
+epochs: 20
+hidden_dim: 16
+learning_rate: 0.001
+num_workers: 5
+output_model_dir: ./aesrc_wavlm_cont_disc_mhubert_cont_disc/
+save_model: true
+weight_decay: 0.001
+
+train_cont_files:
+- aesrc_wavlm_large_cont_train.pkl
+- aesrc_mhubert_cont_train.pkl
+
+train_disc_files:
+- aesrc_wavlm_large_disc_L6_train.pkl
+- aesrc_wavlm_large_disc_L7_train.pkl
+- aesrc_wavlm_large_disc_L24_train.pkl
+- aesrc_mhubert_disc_L11_train.pkl
+
+test_cont_files:
+- aesrc_wavlm_large_cont_test.pkl
+- aesrc_mhubert_cont_test.pkl
+
+test_disc_files:
+- aesrc_wavlm_large_disc_L6_test.pkl
+- aesrc_wavlm_large_disc_L7_test.pkl
+- aesrc_wavlm_large_disc_L24_test.pkl
+- aesrc_mhubert_disc_L11_test.pkl
+
+test_annotation_file: test_annotation.pkl

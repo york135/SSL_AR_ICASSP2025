@@ -1,0 +1,14 @@
+s3prl
+speechbrain
+torch
+torchaudio
+scipy
+numpy
+sklearn
+tqdm
+pyyaml
+librosa
+fairseq
+einops
+fire
+soundfile
