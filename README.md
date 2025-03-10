@@ -234,13 +234,17 @@ where `dataset name` should be either `AESRC` or `VCTK`. Based on the dataset na
 
 ### Regarding result reproduction
 
-On Jan. 2025, when I organized the code after the acceptance of the paper, I re-ran the experiments to make sure everything works as expected, and found that our best setting achieved an accuracy of $83.95$% $\pm$ $0.11$% on AESRC2020's test set, instead of $84.01$% $\pm$ $0.14$% (as reported in the paper). That's probably due to some randomness  issue ($p$ $\approx$ $0.21$ between the two attempts, i.e., no significant difference). Yet, this reproduction still outperforms previous SOTA ($83.63$%) significantly ($p$ $\approx$ $0.0004$). This again confirms that the results and conclusions of our work can be reproduced and re-confirmed despite randomness.
+On Jan. 2025, when I organized the code after the acceptance of the paper, I re-ran the experiments to make sure everything works as expected, and found that our best setting achieved an accuracy of $$83.95\\% \pm 0.11\\%$$ on AESRC2020's test set, instead of $$84.01\\% \pm 0.14\\%$$ (as reported in the paper). That's probably due to some randomness  issue ($$p \approx 0.21$$ between the two attempts, i.e., no significant difference). Yet, this reproduction still outperforms previous SOTA ($$83.63\\%$$) significantly ($$p \approx 0.0004$$). This again confirms that the results and conclusions of our work can be reproduced and re-confirmed despite randomness.
 
-The same observation can be found for VCTK (reported in the paper: $50.03$% $\pm$ $0.40$%; reproduced with current seeds: $50.01$% $\pm$ $0.53$%; $p$ $\approx$ $0.48$ between the two attempts; $p<10^{-8}$ compared with the previous SOTA).
+The same observation can be found for VCTK (reported in the paper: $$50.03\\% \pm 0.40\\%$$; reproduced with current seeds: $$50.01\\% \pm 0.53\\%$$; $$p \approx 0.48$$ between the two attempts; $$p<10^{-8}$$ compared with the previous SOTA).
 
 To access these results, see `jsons/`.
 
+<<<<<<< HEAD
 Anyway, I decided not to change the contents of the paper as the camera-ready version should not include too much changes from the original submission, but I report it here.
+=======
+Anyway, I decided not to change the contents of the paper (as the differences are rather minor), but report it here.
+>>>>>>> 19d98b4b9c7cc0b99c19183023d7d15b6088b533
 
 ### Authors' contributions
 
