@@ -3,7 +3,7 @@ epochs: 20
 hidden_dim: 16
 learning_rate: 0.001
 num_workers: 5
-output_model_dir: ./vctk_wavlm_cont_disc_mhubert_cont/
+output_model_dir: ./vctk_wavlm_cont_disc_mhubert_cont_disc/
 save_model: true
 weight_decay: 0.001
 

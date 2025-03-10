@@ -121,8 +121,6 @@ python accent_cls_aesrc.py --gpu_id [gpu id]
 
 `seed`: specify the random seed.
 
-
-
 For **VCTK**:
 
 ```
@@ -150,8 +148,6 @@ python test_ensemble_aesrc.py --gpu_id [gpu_id] \
 
 For example: `python test_ensemble_aesrc.py --gpu_id -1 --config configs/aesrc_config_wavlm_cont_disc_mhubert_cont_disc.yaml --seed 1 2 3 4 5 6 --result_path aesrc_wavlm_cont_disc_mhubert_cont_disc.json`. 
 
-
-
 For **VCTK**:
 
 ```
@@ -160,6 +156,65 @@ python test_ensemble_vctk.py --gpu_id [gpu_id] \
  --seed [seeds] \
  --result_path [result_path]
 ```
+
+### Inference one audio clip (Issue #1)
+
+Here is the code to inference one audio clip for the best proposed method.
+
+```
+python infer_one_audio.py --audio_path [audio_path] \
+ --model_dir [model_dir] \
+ --gpu_id [gpu_id] \
+ --train_dataset [train_dataset]
+```
+
+ `audio_path`: Path to the input audio that we want to predict the accent.
+
+`model_dir`: The directory to the pre-trained models. The code reads model_dir/{1:21}.pth.tar to perform inference.
+
+`gpu_id`: specify which gpu device should be used for training. `-1` means no gpu.
+
+`train_dataset`: specify the training dataset (either AESRC or VCTK). This affects the prediction settings (8-class or 5-class).
+
+
+
+Here is a demo. The models can be downloaded [here](https://drive.google.com/drive/folders/1hZUzJlCMXDAEjAY-wFraA43T-GlEIiSp?usp=sharing).
+
+```
+python infer_one_audio.py --audio_path AESRC20/british_english/G00009/G00009S3401.wav \ 
+ --model_dir aesrc_wavlm_cont_disc_mhubert_cont_disc/1/ \
+ --train_dataset AESRC
+```
+
+The output will be:
+
+```
+Predicted accent: UK
+All classes activations: tensor([[  8.0882,  14.6849,  -1.5777
+,  -5.1962, -10.8787,   0.2356,  -4.1452, -1.5989]], device='cuda:0')
+```
+
+This is as expected, as this sample audio is in the AESRC2020 dataset's training set. It has to inference it correctly.
+
+
+
+But, if we use the VCTK's checkpoint (i.e., cross-dataset evaluation):
+
+```
+python infer_one_audio.py --audio_path AESRC20/british_english/G00009/G00009S3401.wav \ 
+ --model_dir vctk_wavlm_cont_disc_mhubert_cont/1/ \
+ --train_dataset VCTK
+```
+
+The output will be:
+
+```
+Predicted accent: Irish
+All classes activations: tensor([[-13.9888, -2.9950, 6.0587
+    , 7.9860, 3.7857]]]], device='cuda:0')
+```
+
+Well, it says the speaker is Irish. Not that far away from the UK, but still an incorrect answer.
 
 ### Significance test
 
@@ -175,8 +230,6 @@ python sota_ttest.py [json file #1] [dataset name]
 
 where `dataset name` should be either `AESRC` or `VCTK`. Based on the dataset name, `sota_ttest.py` chooses the proper SOTA and metric for comparison.
 
-
-
 ## **Misc**
 
 ### Regarding result reproduction
@@ -187,7 +240,7 @@ The same observation can be found for VCTK (reported in the paper: $50.03$% $\pm
 
 To access these results, see `jsons/`.
 
-Anyway, I decided not to change the contents of the paper as the camera-ready version should not include too much changes from the original submission, but I decided to report it here.
+Anyway, I decided not to change the contents of the paper as the camera-ready version should not include too much changes from the original submission, but I report it here.
 
 ### Authors' contributions
 
@@ -195,7 +248,7 @@ Anyway, I decided not to change the contents of the paper as the camera-ready ve
 
 **Sheng Li ([SHENG LI](https://halspeech.github.io/index.html))** suggested the idea of using discrete speech units and mHuBERT for accent recognition, preprocessed the AESRC2020 dataset, and provided valuable suggestions on the draft of the paper.
 
-**Li-An Lu** and **Sydney Chia-Chun Kao** preprocessed the VCTK corpus, conducted preliminary experiments on the VCTK dataset using Wav2vec2 and HuBERT to prove the feasibility of accent recognition with SSL without accented ASR. Although these experiments are not mentioned in the paper due, I still want to recognize their contributions here.
+**Li-An Lu** and **Sydney Chia-Chun Kao** preprocessed the VCTK corpus, conducted preliminary experiments on the VCTK dataset using Wav2vec2 and HuBERT to prove the feasibility of accent recognition with SSL without accented ASR. Although these experiments are not mentioned in the paper due, I still recognize their contributions here.
 
 **Jyh-Shing Roger Jang ([Roger Jang's Home Page](http://mirlab.org/jang/))** supervised this project.
 
@@ -203,4 +256,4 @@ Anyway, I decided not to change the contents of the paper as the camera-ready ve
 
 - Although less emphasized in the paper, our "WavLM cont" setting already outperforms ([Li et al., 2023](https://www.isca-archive.org/interspeech_2023/li23aa_interspeech.html)), which also used WavLM-large for feature extraction (also extract continuous features), but with some data augmentation and accented ASR auxiliary task. In my opinion this is a very surprising finding.
 
-- I somewhat acknowledge that, given the claims in our paper (that our method is particularly useful in low-resource scenarios), we should conduct experiments on smaller and more low-resource datasets, instead of AESRC2020 and VCTK, which are arguably not **very** small. But we have to do that as they were frequently used for experiments in previous works. I hope somebody will try our method on langauges/accents that are **really** low-resource. I am really curious about the results!
+- I somewhat acknowledge that, given the claims in our paper (that our method is particularly useful in low-resource scenarios), we should conduct experiments on smaller and more low-resource datasets, instead of AESRC2020 and VCTK, which are arguably not **very** small. But we have to do that as they were frequently used for experiments in previous works. I hope somebody will try our method on langauges/accents that are **really** low-resource. I am curious about the results!
